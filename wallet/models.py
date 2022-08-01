@@ -14,101 +14,97 @@ class Customer (models.Model):
 
 
 class Wallet(models.Model):
-    Address =models.CharField
-    ProfilePhoto = models.ImageField
-    AccountName  = models.CharField(max_length=15)
-    Balance = models.DecimalField
-    Status = models.CharField
-    BankAccountName = models.CharField
-    BankAccountNumber = models.CharField
-    UserName = models.CharField(max_length=15)
-    UserEmail = models.EmailField
-    Transaction = models.DecimalField
-    UserPhoneNumber = models.PositiveIntegerField
-    Amount = models.PositiveIntegerField
-    Time = models.DateTimeField
-    UserId = models.BigAutoField
-    Customer = models.OneToOneField
-    Pin = models.SmallIntegerField
-    IsActive = models.BooleanField
+    address =models.CharField()
+    profilePhoto = models.ImageField()
+    accountName  = models.CharField(max_length=15)
+    balance = models.DecimalField()
+    status = models.CharField()
+    bankAccountName = models.CharField()
+    bankAccountNumber = models.CharField()
+    userName = models.CharField(max_length=15)
+    userEmail = models.EmailField()
+    transaction = models.DecimalField()
+    userPhoneNumber = models.PositiveIntegerField()
+    amount = models.PositiveIntegerField()
+    time = models.DateTimeField()
+    userId = models.BigAutoField()
+    customer = models.OneToOneField()
+    pin = models.SmallIntegerField()
+    isActive = models.BooleanField()
 
 
 class Account(models.Model):
-    Account = models.CharField
-    Balance = models.PositiveIntegerField
-    Name = models.CharField(max_length=15)
+    account = models.CharField()
+    balance = models.PositiveIntegerField()
+    name = models.CharField(max_length=15)
 
 
 class Transaction(models.Model):
-    AccountName  = models.CharField
-    AccountOrigin = models.ForeignKey
-    AccountNumber = models.PositiveIntegerField
-    Amount = models.PositiveIntegerField
-    Currency = models.CharField
-    Location = models.CharField
-    Destination = models.ForeignKey
-    Status  = models.CharField
-    Date = models.DateTimeField
-    ThirdParty = models.CharField
+    accountName  = models.CharField()
+    accountOrigin = models.ForeignKey()
+    accountNumber = models.PositiveIntegerField()
+    amount = models.PositiveIntegerField()
+    currency = models.CharField()
+    location = models.CharField()
+    destination = models.ForeignKey()
+    status  = models.CharField()
+    date = models.DateTimeField()
+    thirdParty = models.CharField()
 
 
 class Card(models.Model):
-    CardholderNumber = models.CharField
-    CardHolderName = models.CharField
-    ExpiryDate = models.DateTimeField
-    CVVSecurityCode = models.PositiveSmallIntegerField
-    CardStatus = models.CharField
-    Signature  = models.ImageField
-    Issuer = models.CharField
+    cardholderNumber = models.CharField()
+    cardHolderName = models.CharField()
+    expiryDate = models.DateTimeField()
+    cVVSecurityCode = models.PositiveSmallIntegerField()
+    cardStatus = models.CharField()
+    signature  = models.ImageField()
+    issuer = models.CharField()
 
 
 
 
 class ThirdParty(models.Model):
-
-    AccountName = models.CharField
-    AccountNumber = models.BigAutoField
-    Amount = models.BigAutoField
-    Currency = models.CharField
-    Location  = models.CharField
-    TransactionCost = models.PositiveIntegerField
-    IsActive = models.BooleanField
+    accountName = models.CharField()
+    accountNumber = models.BigAutoField()
+    amount = models.PositiveIntegerField()
+    currency = models.CharField()
+    location  = models.CharField()
+    transactionCost = models.PositiveIntegerField()
+    isActive = models.BooleanField()
 
 
 class Notification(models.Model):
-
-    Message = models.CharField
-    Title = models.CharField
-    IsActive = models.CharField
-    Recipient = models.ForeignKey
-    Date = models.DateTimeField
+    message = models.CharField()
+    title = models.CharField()
+    isActive = models.CharField()
+    recipient = models.ForeignKey()
+    date = models.DateTimeField()
 
 
 class Receipt(models.Model):
-
-    ReceiptType = models.CharField
-    ReceiptDate = models.DateTimeField
-    BillNumber = models.BigAutoField
-    Date = models.DateTimeField
-    Transaction = models.ForeignKey
-    File = models.FilePathField
+    receiptType = models.CharField()
+    receiptDate = models.DateTimeField()
+    billNumber = models.BigAutoField()
+    date = models.DateTimeField()
+    transaction = models.ForeignKey()
+    file = models.FilePathField()
 
 
 class Loan(models.Model):
-    Amount  = models.PositiveIntegerField
-    LoanType = models.CharField
-    LoanId = models.CharField
-    LoanID = models.BigAutoField
-    Amount = models.BigAutoField
-    Date = models.DateTimeField
-    Status = models.CharField
-    DulationMonths = models.CharField
-    PaymentDueDate  = models.DateTimeField
+    amount  = models.PositiveIntegerField()
+    loanType = models.CharField()
+    loanId = models.CharField()
+    loanID = models.BigAutoField()
+    amount = models.BigAutoField()
+    date = models.DateTimeField()
+    status = models.CharField()
+    dulationMonths = models.CharField()
+    paymentDueDate  = models.DateTimeField()
 
 
 
 class Reward(models.Model):
-
     Gender = models.CharField(max_length=1)
     Name = models.CharField(max_length=15)
     CustomerID = models.BigAutoField
