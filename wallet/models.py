@@ -1,114 +1,118 @@
+from concurrent.futures.process import _ThreadWakeup
+from datetime import datetime
+from distutils.command.upload import upload
 from locale import currency
 from statistics import mode
+from wsgiref.simple_server import demo_app
 from django.db import models
+from sqlalchemy import true
 
 # Create your models here.
 class Customer (models.Model):
-    firstname = models.CharField(max_length=15)
-    secondname  = models.CharField(max_length=15)
-    gender = models.CharField(max_length=1)
+    firstname = models.CharField(max_length=15,null=True)
+    secondname  = models.CharField(max_length=15, null=True)
+    gender = models.CharField(max_length=1, null=True)
     address = models.TextField()
     age = models.PositiveSmallIntegerField()
-    nationality = models.CharField(max_length=15)
+    nationality = models.CharField(max_length=15,null=True)
     email = models.EmailField()
 
 
 class Wallet(models.Model):
-    address =models.CharField()
-    profilePhoto = models.ImageField()
-    accountName  = models.CharField(max_length=15)
-    balance = models.DecimalField()
-    status = models.CharField()
-    bankAccountName = models.CharField()
-    bankAccountNumber = models.CharField()
+    address =models.CharField(max_length=20,null=True)
+    profile_Photo = models.ImageField(upload_to='profile_Photo', null=True)
+    accountName  = models.CharField(max_length=15,null=True)
+    balance = models.DecimalField(decimal_places=2,)
+    status = models.CharField(max_length=20)
+    bankAccountName = models.CharField(max_length=15)
+    bankAccountNumber = models.CharField(max_length=20)
     userName = models.CharField(max_length=15)
     userEmail = models.EmailField()
-    transaction = models.DecimalField()
+    transaction = models.ForeignKey('transaction',on_delete=models.CASCADE,related_name='Reward_transaction')
     userPhoneNumber = models.PositiveIntegerField()
     amount = models.PositiveIntegerField()
-    time = models.DateTimeField()
-    userId = models.BigAutoField()
-    customer = models.OneToOneField()
+    time = models.DateTimeField(default=datetime.now)
+    userId = models.PositiveBigIntegerField()
     pin = models.SmallIntegerField()
-    isActive = models.BooleanField()
+    is_Active = models.BooleanField(default=False)
 
 
 class Account(models.Model):
     account = models.CharField()
     balance = models.PositiveIntegerField()
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=15, null=True)
 
 
 class Transaction(models.Model):
     accountName  = models.CharField()
-    accountOrigin = models.ForeignKey()
+    accountType = models.ForeignKey('account_Type',on_delete=models.CASCADE,related_name='Reward_account_Type')
     accountNumber = models.PositiveIntegerField()
     amount = models.PositiveIntegerField()
-    currency = models.CharField()
+    currency = models.CharField(max_length=10)
     location = models.CharField()
-    destination = models.ForeignKey()
-    status  = models.CharField()
-    date = models.DateTimeField()
-    thirdParty = models.CharField()
+    destination = models.ForeignKey('destination',on_delete=models.CASCADE,related_name='Reward_destination')
+    status  = models.CharField(max_length=10, null=True)
+    date = models.DateTimeField(default=datetime.now)
+    thirdParty = models.CharField(max_length=20, null=True)
 
 
 class Card(models.Model):
     cardholderNumber = models.CharField()
     cardHolderName = models.CharField()
-    expiryDate = models.DateTimeField()
+    expiryDate = models.DateTimeField(default=datetime.now)
     cVVSecurityCode = models.PositiveSmallIntegerField()
     cardStatus = models.CharField()
-    signature  = models.ImageField()
+    signature  = models.ImageField(upload_to='signature', null=True)
     issuer = models.CharField()
 
 
 
 
 class ThirdParty(models.Model):
-    accountName = models.CharField()
-    accountNumber = models.BigAutoField()
+    accountName = models.CharField(max_length=20, null=True)
+    accountNumber = models.PositiveBigIntegerField()
     amount = models.PositiveIntegerField()
-    currency = models.CharField()
-    location  = models.CharField()
+    currency = models.CharField(max_length=20, null=True)
+    location  = models.CharField(max_length=20, null=True)
     transactionCost = models.PositiveIntegerField()
-    isActive = models.BooleanField()
+    is_Active = models.BooleanField(default=True)
 
 
 class Notification(models.Model):
     message = models.CharField()
     title = models.CharField()
-    isActive = models.CharField()
-    recipient = models.ForeignKey()
-    date = models.DateTimeField()
+    is_Active = models.BooleanField(default=False)
+    recipient = models.ForeignKey('recipient',on_delete=models.CASCADE,related_name='Reward_recipient')
+    date = models.DateTimeField(default=datetime.now)
 
 
 class Receipt(models.Model):
-    receiptType = models.CharField()
-    receiptDate = models.DateTimeField()
-    billNumber = models.BigAutoField()
-    date = models.DateTimeField()
-    transaction = models.ForeignKey()
+    receiptType = models.CharField(max_length=15, null=True)
+    receiptDate = models.DateTimeField(default=datetime.now)
+    billNumber = models.PositiveBigIntegerField(max_length=15,null=True)
+    date = models.DateTimeField(default=datetime.now)
+    transaction = models.ForeignKey('transaction',on_delete=models.CASCADE,related_name='Reward_transaction')
     file = models.FilePathField()
 
 
 class Loan(models.Model):
     amount  = models.PositiveIntegerField()
-    loanType = models.CharField()
-    loanId = models.CharField()
-    loanID = models.BigAutoField()
-    amount = models.BigAutoField()
-    date = models.DateTimeField()
+    loan_Type = models.CharField()
+    loan_Id = models.CharField()
+    loan_Id = models.PositiveBigIntegerField()
+    amount = models.PositiveBigIntegerField()
+    date = models.DateTimeField(default=datetime.now)
     status = models.CharField()
-    dulationMonths = models.CharField()
-    paymentDueDate  = models.DateTimeField()
+    dulation_Months = models.CharField(max_length=10,null=True)
+    paymentDueDate  = models.DateTimeField(default=datetime.now)
 
 
 
 class Reward(models.Model):
-    Gender = models.CharField(max_length=1)
-    Name = models.CharField(max_length=15)
-    CustomerID = models.BigAutoField
-    Wallet = models.ForeignKey
-    Transaction = models.ForeignKey
+    gender = models.CharField(("M", "Male"),("F","Famale"))
+    name = models.CharField(max_length=15,null=True)
+    customerID = models.BigAutoField()
+    wallet = models.ForeignKey(Wallet,on_delete=models.CASCADE,related_name='Reward_wallet')
+    transaction = models.ForeignKey('transaction',on_delete=models.CASCADE,related_name='Reward_transaction')
 
 
