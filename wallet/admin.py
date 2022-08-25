@@ -4,8 +4,8 @@ from .models import Account, Card, Customer, Loan, Notification, Receipt, Reward
 
 # Register your models here.
 class CustomerAdmin(admin.ModelAdmin):
-    List_display = ("first_name", "last_name", "email")
-    search_fields= ("first_name", "last_name")
+    list_display = ("first_name", "last_name", "email",)
+    search_fields= ("first_name", "last_name",)
 
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Wallet)
