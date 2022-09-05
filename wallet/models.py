@@ -16,8 +16,9 @@ class Customer (models.Model):
 
 
 class Wallet(models.Model):
-    Customer = models.OneToOneField("Customer", on_delete=models.CASCADE)
+    customer = models.OneToOneField("customer", on_delete=models.CASCADE)
     balance = models.IntegerField()
+    user_name = models.CharField(max_length=15, null=True)
     time = models.DateTimeField(default=datetime.now)
     pin = models.SmallIntegerField()
     is_active = models.BooleanField()
@@ -28,11 +29,11 @@ class Wallet(models.Model):
 class Account(models.Model):
     account = models.CharField(max_length=15)
     balance = models.PositiveIntegerField(default=0)
-    name = models.CharField(max_length=15, null=True)
+    name = models.CharField(max_length=15, )
 
 
 class Transaction(models.Model):
-    account_name  = models.CharField(max_length=12)
+    account_name  = models.CharField(max_length=12, null=True)
     account_number = models.PositiveIntegerField()
     amount = models.PositiveIntegerField()
     currency = models.CharField(max_length=10)
@@ -40,20 +41,19 @@ class Transaction(models.Model):
     status  = models.CharField(max_length=10, null=True)
     date = models.DateTimeField(default=datetime.now)
     third_party = models.CharField(max_length=20, null=True)
+    transaction_code = models.CharField(max_length=15, null= True)
 
 
 class Card(models.Model):
     
-    card_holder_umber = models.CharField(max_length=20, default=False, blank=True)
-    card_holder_name = models.CharField(max_length=12, default=False, blank=True)
+    card_number = models.CharField(max_length=20, default=False, blank=True)
+    card_name = models.CharField(max_length=12,null=True)
     expiry_date = models.DateTimeField(default=datetime.now)
     cVV_security_code = models.PositiveSmallIntegerField(default=0)
     card_status = models.CharField(max_length=15,default=False, blank=True)
     signature  = models.ImageField(upload_to='signature', null=True)
     issuer = models.CharField(max_length=15,default=False, blank=True)
-
-
-
+    account_number = models.PositiveIntegerField()
 
 
 class ThirdParty(models.Model):
@@ -67,14 +67,14 @@ class ThirdParty(models.Model):
 
 
 class Notification(models.Model):
-    message = models.CharField(max_length=20)
+    message = models.CharField(max_length=20,null=True)
     title = models.CharField(max_length=15)
     is_active = models.BooleanField(default=False)
     date = models.DateTimeField(default=datetime.now)
 
 
 class Receipt(models.Model):
-    receipt_type = models.CharField(max_length=15, null=True)
+    receipt_type = models.CharField(max_length=15,null=True)
     receipt_date = models.DateTimeField(default=datetime.now)
     bill_number = models.PositiveBigIntegerField()
     date = models.DateTimeField(default=datetime.now)
@@ -82,9 +82,7 @@ class Receipt(models.Model):
 
 
 class Loan(models.Model):
-    amount  = models.PositiveIntegerField(default=0)
     loan_id = models.CharField(max_length=15)
-    loan_id = models.PositiveBigIntegerField(default=0)
     amount = models.PositiveBigIntegerField(default=0)
     date = models.DateTimeField(default=datetime.now)
     status = models.CharField(max_length=15)
@@ -92,10 +90,9 @@ class Loan(models.Model):
     payment_due_date  = models.DateTimeField(default=datetime.now)
 
 
-
 class Reward(models.Model):
-    # gender = models.CharField(("M", "Male"),("F","Famale"))
     name = models.CharField(max_length=15,null=True)
     transaction = models.ForeignKey('transaction',on_delete=models.CASCADE,related_name='Reward_transaction')
+    date = models.DateTimeField(default=datetime.now)
 
 
