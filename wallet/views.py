@@ -36,6 +36,10 @@ def register_reward(request):
     form = RewardRegistrationForm()
     return render(request, "wallet/register_reward.html",{"form": form})
 
+def register_receipt(request):
+    form = ReceiptRegistrationForm()
+    return render(request, "wallet/register_receipt.html",{"form": form})
+
 
 
 

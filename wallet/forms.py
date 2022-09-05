@@ -1,5 +1,5 @@
 from django import forms
-from .models import Card, Customer, Receipt, Wallet, Account, Transaction, Card, ThirdParty, Notification, Loan, Reward
+from .models import Card, Customer, Wallet, Account, Transaction, Card, ThirdParty, Notification, Loan, Reward
 
 # what are the content of http class
 
@@ -46,9 +46,4 @@ class RewardRegistrationForm(forms.ModelForm):
     class Meta:
         model = Reward
         fields = "__all__"
-
-# class ReceiptRegistrationForm(forms.ModelForm):
-#     class Meta:
-#         model = Receipt
-#         fields = "__all__"
 
