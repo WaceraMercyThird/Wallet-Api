@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <th>
+            <td> First Name</td>
+            <td> Email</td>
+            <td> Age</td>
+            <td> View Profile</td>
+
+        </th>
+        {%for wallet in wallets%}
+        <tr>
+            <td>{{ wallet.first_name}}</td>
+            <td>{{ wallet.email}}</td>
+            <td>{{ wallet.age}}</td>
+            <a href="{%url 'wallet_profile' id=wallet.id%}"></a>
+            {%endfor%}
+        </tr>
+       
+
+    </table>
+    
+</body>
+</html>
