@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from wallet.models import Customer
-from ..Api.serializers import CustomerSerializer
-# from django.shortcuts import render, redirect
+from ..Api.serializers import CustomerSerializer, WalletSerializer, AccountSerializer, CardSerializer, TransactionSerializer, NotificationSerializer
+from django.shortcuts import render, redirect
 from wallet.models import Account, Card, Customer, Loan, Notification, Receipt, Reward, ThirdParty, Transaction, Wallet
 from .forms import CustomerRegistrationForm, WalletRegistrationForm, AccountRegistrationForm, TransactionRegistrationForm, CardRegistrationForm, ThirdPartyRegistrationForm,NotificationRegistrationForm, LoanRegistrationForm, RewardRegistrationForm
 
@@ -19,6 +19,9 @@ def register_customer(request):
 
     return render(request, "wallet/register_customer.html",{"form": form})
         
+class WalletViewset(viewsets.ModelViewset):
+    queryset = Wallet.objects.all()
+    serializer_class = WalletSerializer
 
 def register_wallet(request):
     # form = WalletRegistrationForm()
@@ -85,7 +88,9 @@ def edit_wallet(request, id):
 
 
 
-
+class AccountViewset(viewsets.ModelViewset):
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
 
     
 def register_account(request):
@@ -119,7 +124,9 @@ def edit_account(request, id):
 
 
 
-
+class TransactionViewset(viewsets.ModelViewset):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
 
 def register_transaction(request):
     if request.method == "POST":
@@ -152,6 +159,11 @@ def edit_transaction(request, id):
         
     # form = TransactionRegistrationForm()
     # return render(request, "wallet/register_transaction.html",{"form": form})
+
+
+class CardViewset(viewsets.ModelViewset):
+    queryset = Card.objects.all()
+    serializer_class = CardSerializer
 
 def register_card(request):
     if request.method == "POST":
@@ -219,6 +231,9 @@ def edit_thirdParty(request, id):
     # return render(request, "wallet/register_thirdParty.html",{"form": form})
 
 
+class NotificationViewset(viewsets.ModelViewset):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationSerializer
 
 def register_notification(request):
     if request.method == "POST":
@@ -252,6 +267,10 @@ def edit_notification(request, id):
     # form = NotificationRegistrationForm()
     # return render(request, "wallet/register_notification.html",{"form": form})
 
+
+class LoanViewset(viewsets.ModelViewset):
+    queryset = Loan.objects.all()
+    serializer_class = LoanSerializer
 def register_loan(request):
     if request.method == "POST":
         form = LoanRegistrationForm(request.POST)
