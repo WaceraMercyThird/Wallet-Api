@@ -1,7 +1,12 @@
 from django.urls import path
 from .views import list_customers, register_account, register_card, register_customer, register_loan, register_notification, register_reward, register_thirdParty, register_wallet, register_transaction, customer_profile, edit_customer, list_wallets, list_accounts,list_transactions,list_cards,list_loans,list_rewards,list_thirdPartys,list_notifications, wallet_profile,account_profile,transaction_profile, card_profile,thirdParty_profile, notification_profile, loan_profile, reward_profile,edit_account,edit_card,edit_loan,edit_notification,edit_reward,edit_thirdParty,edit_transaction,edit_wallet
 
+
+
+
 urlpatterns = [
+
+
     path("register/", register_customer, name="regisration"),
     path("signup/", register_wallet, name="register_signup"),
     path("accounts/", register_account, name="register_accounts"),

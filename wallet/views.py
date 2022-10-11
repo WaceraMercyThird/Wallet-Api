@@ -1,8 +1,13 @@
-from django.shortcuts import render, redirect
+from rest_framework import viewsets
+from wallet.models import Customer
+from ..Api.serializers import CustomerSerializer
+# from django.shortcuts import render, redirect
 from wallet.models import Account, Card, Customer, Loan, Notification, Receipt, Reward, ThirdParty, Transaction, Wallet
 from .forms import CustomerRegistrationForm, WalletRegistrationForm, AccountRegistrationForm, TransactionRegistrationForm, CardRegistrationForm, ThirdPartyRegistrationForm,NotificationRegistrationForm, LoanRegistrationForm, RewardRegistrationForm
 
-
+class CustomerViewset(viewsets.ModelViewset):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
 def register_customer(request):
     if request.method == "POST":
@@ -68,7 +73,7 @@ def wallet_profile(request, id):
     return render(request, "wallet/wallet_profile.html", {"wallet": wallet})
 
 def edit_wallet(request, id):
-    wallet = Wallet.objects.get(id=id)
+    wallet = Wallet.objects.get(id= id)
     if request.method=="POST":
         form  = WalletRegistrationForm(request.POST, instance=wallet)
         if form.is_valid():
