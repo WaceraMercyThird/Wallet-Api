@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from wallet.models import Customer
-from ..Api.serializers import CustomerSerializer, WalletSerializer, AccountSerializer, CardSerializer, TransactionSerializer, NotificationSerializer
+from ..Api.serializers import CustomerSerializer, WalletSerializer, AccountSerializer, CardSerializer, TransactionSerializer, NotificationSerializer, LoanSerializer
 from django.shortcuts import render, redirect
 from wallet.models import Account, Card, Customer, Loan, Notification, Receipt, Reward, ThirdParty, Transaction, Wallet
 from .forms import CustomerRegistrationForm, WalletRegistrationForm, AccountRegistrationForm, TransactionRegistrationForm, CardRegistrationForm, ThirdPartyRegistrationForm,NotificationRegistrationForm, LoanRegistrationForm, RewardRegistrationForm
