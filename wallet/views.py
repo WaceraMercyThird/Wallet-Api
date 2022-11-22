@@ -1,11 +1,11 @@
 from rest_framework import viewsets
 from wallet.models import Customer
-from ..Api.serializers import CustomerSerializer, WalletSerializer, AccountSerializer, CardSerializer, TransactionSerializer, NotificationSerializer, LoanSerializer
+from Api.serializers import CustomerSerializer, WalletSerializer, AccountSerializer, CardSerializer, TransactionSerializer, NotificationSerializer, LoanSerializer
 from django.shortcuts import render, redirect
 from wallet.models import Account, Card, Customer, Loan, Notification, Receipt, Reward, ThirdParty, Transaction, Wallet
 from .forms import CustomerRegistrationForm, WalletRegistrationForm, AccountRegistrationForm, TransactionRegistrationForm, CardRegistrationForm, ThirdPartyRegistrationForm,NotificationRegistrationForm, LoanRegistrationForm, RewardRegistrationForm
 
-class CustomerViewset(viewsets.ModelViewset):
+class CustomerViewset(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
@@ -19,7 +19,7 @@ def register_customer(request):
 
     return render(request, "wallet/register_customer.html",{"form": form})
         
-class WalletViewset(viewsets.ModelViewset):
+class WalletViewset(viewsets.ModelViewSet):
     queryset = Wallet.objects.all()
     serializer_class = WalletSerializer
 
@@ -88,7 +88,7 @@ def edit_wallet(request, id):
 
 
 
-class AccountViewset(viewsets.ModelViewset):
+class AccountViewset(viewsets.ModelViewSet):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
@@ -124,7 +124,7 @@ def edit_account(request, id):
 
 
 
-class TransactionViewset(viewsets.ModelViewset):
+class TransactionViewset(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
 
@@ -161,7 +161,7 @@ def edit_transaction(request, id):
     # return render(request, "wallet/register_transaction.html",{"form": form})
 
 
-class CardViewset(viewsets.ModelViewset):
+class CardViewset(viewsets.ModelViewSet):
     queryset = Card.objects.all()
     serializer_class = CardSerializer
 
@@ -231,7 +231,7 @@ def edit_thirdParty(request, id):
     # return render(request, "wallet/register_thirdParty.html",{"form": form})
 
 
-class NotificationViewset(viewsets.ModelViewset):
+class NotificationViewset(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
 
@@ -268,7 +268,7 @@ def edit_notification(request, id):
     # return render(request, "wallet/register_notification.html",{"form": form})
 
 
-class LoanViewset(viewsets.ModelViewset):
+class LoanViewset(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
 def register_loan(request):
