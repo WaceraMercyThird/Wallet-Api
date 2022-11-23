@@ -85,6 +85,7 @@ def edit_wallet(request, id):
     else:
         form = WalletRegistrationForm(instance=wallet)
         return render(request, "wallet/edit_wallet.html", {"form": form})
+        
 
 
 
